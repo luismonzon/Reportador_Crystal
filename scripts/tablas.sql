@@ -13,7 +13,7 @@ Constraint pk_LSA_DEPTOS_id_dep primary Key (id_departamento)
 create table LSA_REPORTES(
 id_reporte int identity (1,1) not null,
 nombre_reporte varchar(100) null,
-path_reporte varchar(100) not null,
+path_reporte varchar(250) not null,
 Constraint pk_LSA_REPORTES_id_rep primary Key (id_reporte)  
 );
 
@@ -35,7 +35,7 @@ Constraint fk_LSA_REPORT_DEP_id_rep Foreign Key (id_reporte) references LSA_REPO
 Constraint fk_LSA_REPORT_DEP_id_dep Foreign Key (id_departamento) references LSA_DEPTOS(id_departamento)
 );
 
-
+/*
 
 drop table LSA_REPORT_DEP
 drop table LSA_USER_DEP
@@ -43,12 +43,15 @@ Drop table LSA_REPORTES
 drop table LSA_DEPTOS
 drop table LSA_USUARIOS
 
-
+*/
 insert into LSA_USUARIOS (username,password) (select name, password_hash FROM sys.sql_logins);
 insert into LSA_DEPTOS (nombre_departamento) values ('Contabilidad'),('Costos'),('CxP'),('CxC'),('Produccion'),( 'Ventas'),( 'Inventario');
+insert into LSA_REPORTES(nombre_reporte,path_reporte) values ('prueba3','C:\Users\Luis\Documents\Reportador_Crystal-master\Reportador_Crystal-master\Reportes\Cr_AnexosCatalogo.rpt');
+select * from LSA_USUARIOS
 
+insert into LSA_REPORT_DEP (id_reporte,id_departamento) values (1,1),(2,1),(3,1),(2,2);
+select * from LSA_REPORT_DEP
 
-insert into LSA_REPORT_DEP (id_reporte,id_departamento) values (1,1),(2,1);
 
 
 

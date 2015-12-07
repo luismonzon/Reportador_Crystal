@@ -32,8 +32,9 @@ namespace Reportes
                 VariablesGlobales.Password = contraseña.Text.ToString();
                 VariablesGlobales.Usuario = usuario.Text.ToString();
                 
-                Admin admin = new Admin();
+                Admin admin = new Admin(this);
                 admin.Show();
+                this.Hide();
 
                // User nuevo = new User();
                // nuevo.Show();

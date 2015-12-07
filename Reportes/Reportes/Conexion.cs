@@ -12,11 +12,12 @@ public class Conexion
     String datosConexion;
     public Conexion()
     {
-        server = "NTFS";
+        //server = "192.168.0.167\\NTFS";
+        server = "localhost";
         user = "sa";
         pass = "K66admin";
         database = "LSA";
-        datosConexion = "Data Source=192.168.0.167\\" + server + ",1433;Network Library=DBMSSOCN;" +
+        datosConexion = "Data Source=" + server + ",1433;Network Library=DBMSSOCN;" +
             "Initial Catalog=" + database + ";User ID=" + user + ";Password=" + pass + ";";
     }
 
@@ -63,24 +64,46 @@ public class Conexion
         return tabla;
     }
 
-    public void Insertar_reportes_Sql() {
-        using(SqlConnection connection = new SqlConnection(datosConexion))
+    public void Insertar_reportes_Sql()
+    {
+        using (SqlConnection connection = new SqlConnection(datosConexion))
+        {
+            connection.Open();
+            string sql = "INSERT INTO LSA_REPORTES(path_reporte) VALUES(@param1);";
+            SqlCommand cmd = new SqlCommand(sql, connection);
+            foreach (string filename in Directory.GetFiles(@"\\Ntfs\vep\Reportes\", "*.rpt"))
             {
-                connection.Open();
-                string sql =  "INSERT INTO LSA_REPORTES(path_reporte) VALUES(@param1);";
-                SqlCommand cmd = new SqlCommand(sql,connection);
-                 foreach (string filename in Directory.GetFiles(@"\\Ntfs\vep\Reportes\", "*.rpt"))
-                  {
-                    cmd.Parameters.Clear();
-                    cmd.Parameters.Add("@param1", SqlDbType.VarChar).Value = filename ;
-                    cmd.CommandType = CommandType.Text;
-                    cmd.ExecuteNonQuery();
-                  }
-                
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add("@param1", SqlDbType.VarChar).Value = filename;
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
             }
-    
+
+        }
+
 
     }
+
+    public void Insertar_rep_dep(String rep, String dep)
+    {
+        using (SqlConnection connection = new SqlConnection(datosConexion))
+        {
+            connection.Open();
+            string sql = "insert into LSA_REPORT_DEP (id_reporte,id_departamento) values (@rep,@dep);";
+            SqlCommand cmd = new SqlCommand(sql, connection);
+
+            cmd.Parameters.Add("@dep", SqlDbType.Int).Value =dep;
+            cmd.Parameters.Add("@rep", SqlDbType.Int).Value =rep;
+
+            cmd.CommandType = CommandType.Text;
+            cmd.ExecuteNonQuery();
+
+
+        }
+
+
+    }
+
 
 
 }
