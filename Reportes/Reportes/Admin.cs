@@ -128,30 +128,10 @@ namespace Reportes
             }
         }
 
-        private void asignarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+  
 
-        }
 
-        
-
-        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            VariablesGlobales.Usuario = "";
-            VariablesGlobales.Password = "";
-            login.Show();
-            this.Close();
-        }
-
-        private void cerrarSesionToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
-        {
-            dataGridView1.DoDragDrop(dataGridView1.SelectedRows, DragDropEffects.Move);
-        }
+    
 
         private void treeView1_DragEnter(object sender, DragEventArgs e)
         {
@@ -174,6 +154,7 @@ namespace Reportes
 
         private void treeView1_DragDrop(object sender, DragEventArgs e)
         {
+            
 
             if (e.Data.GetDataPresent(typeof(DataGridViewSelectedRowCollection)))
             {
@@ -181,19 +162,69 @@ namespace Reportes
                 TreeNode destinationNode;
                 pt = treeView1.PointToClient(new Point(e.X, e.Y));
                 destinationNode = treeView1.GetNodeAt(pt);
+                if(destinationNode.Parent==null){
                 DataGridViewSelectedRowCollection rowToMove = e.Data.GetData(typeof(DataGridViewSelectedRowCollection)) as DataGridViewSelectedRowCollection;
 
                 foreach (DataGridViewRow row in rowToMove)
                 {
-                    TreeNode nuevo = new TreeNode(row.Cells[1].Value.ToString());
-                    nuevo.Tag = row.Cells[2].ToString();
-                    destinationNode.Nodes.Add(nuevo);
                     //insert base de datos
-                    conexiones.Insertar_rep_dep(row.Cells[0].Value.ToString(),destinationNode.Tag.ToString());
+                    string val = conexiones.Insertar_rep_dep(row.Cells[0].Value.ToString(), destinationNode.Tag.ToString());
+                    if (val != "1")
+                    {
+                        MessageBox.Show("Error al asignar Departamento/Reporte");
+                    }
+                    else
+                    {
+                        TreeNode nuevo = new TreeNode(row.Cells[1].Value.ToString());
+                        nuevo.Tag = row.Cells[2].ToString();
+                        destinationNode.Nodes.Add(nuevo);
+                    }
+                   
                 }
 
+                }
             }
             
+        }
+
+        private void gruposToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+       
+
+        }
+
+        private void cerrarSesionToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            VariablesGlobales.Usuario = "";
+            VariablesGlobales.Password = "";
+            login.Show();
+            this.Close();
+        }
+
+        private void asignarUsuariosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Crear_Departamento nuevo = new Crear_Departamento();
+            nuevo.ShowDialog();
+        }
+
+        private void salirToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void sesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cerrarSesionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void salirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
 
        

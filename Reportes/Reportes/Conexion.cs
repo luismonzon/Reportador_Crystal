@@ -84,26 +84,54 @@ public class Conexion
 
     }
 
-    public void Insertar_rep_dep(String rep, String dep)
+   
+
+    public String Insertar_rep_dep(String rep, String dep)
     {
         using (SqlConnection connection = new SqlConnection(datosConexion))
         {
             connection.Open();
-            string sql = "insert into LSA_REPORT_DEP (id_reporte,id_departamento) values (@rep,@dep);";
-            SqlCommand cmd = new SqlCommand(sql, connection);
 
-            cmd.Parameters.Add("@dep", SqlDbType.Int).Value =dep;
-            cmd.Parameters.Add("@rep", SqlDbType.Int).Value =rep;
+            SqlCommand cmd = new SqlCommand("Asignar_Dep_rep", connection);
 
-            cmd.CommandType = CommandType.Text;
-            cmd.ExecuteNonQuery();
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add(new SqlParameter("@rep", rep));
+            cmd.Parameters.Add(new SqlParameter("@dep", dep));
+
+            using (SqlDataReader rdr = cmd.ExecuteReader())
+            {
+                
+                while (rdr.Read())
+                {
+                    return rdr["resultado"].ToString();
+                }
+            }
 
 
         }
 
-
+        return "0";
     }
 
 
+
+    public void Insertar_Dep(String nombre)
+    {
+        using (SqlConnection connection = new SqlConnection(datosConexion))
+        {
+            connection.Open();
+            string sql = "INSERT INTO LSA_DEPTOS(nombre_departamento) VALUES(@param1);";
+            SqlCommand cmd = new SqlCommand(sql, connection);
+            
+                cmd.Parameters.Clear();
+                cmd.Parameters.Add("@param1", SqlDbType.VarChar).Value = nombre;
+                cmd.CommandType = CommandType.Text;
+                cmd.ExecuteNonQuery();
+            
+
+        }
+       
+    }
 
 }

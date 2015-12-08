@@ -63,6 +63,30 @@
       <DependentUpon>Admin.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
+    <Compile Include="Crear_Departamento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crear_Departamento.Designer.cs">
+      <DependentUpon>Crear_Departamento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crear_Reporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crear_Reporte.Designer.cs">
+      <DependentUpon>Crear_Reporte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Crear_Usuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Crear_Usuario.Designer.cs">
+      <DependentUpon>Crear_Usuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Depa_User.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Depa_User.Designer.cs">
+      <DependentUpon>Depa_User.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +110,18 @@
     <Compile Include="VariablesGlobales.cs" />
     <EmbeddedResource Include="Admin.resx">
       <DependentUpon>Admin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crear_Departamento.resx">
+      <DependentUpon>Crear_Departamento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crear_Reporte.resx">
+      <DependentUpon>Crear_Reporte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Crear_Usuario.resx">
+      <DependentUpon>Crear_Usuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Depa_User.resx">
+      <DependentUpon>Depa_User.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
