@@ -14,15 +14,27 @@ namespace Reportes
 
         public static void ShowReport(String url)
         {
-            ReportDocument myReportDocument = new ReportDocument();
-            myReportDocument.Load(@url);
+            try
+            {
+                ReportDocument myReportDocument = new ReportDocument();
+                myReportDocument.Load(@url);
 
-            Reportes reportes = new Reportes();
+                Reportes reportes = new Reportes();
 
-            myReportDocument.SetDatabaseLogon(VariablesGlobales.Usuario, VariablesGlobales.Password);
-            reportes.crystalReportViewer1.ReportSource = myReportDocument;
-            reportes.crystalReportViewer1.DisplayToolbar = true;
-            reportes.Show();
+                myReportDocument.SetDatabaseLogon(VariablesGlobales.Usuario, VariablesGlobales.Password);
+                reportes.crystalReportViewer1.ReportSource = myReportDocument;
+                reportes.crystalReportViewer1.DisplayToolbar = true;
+                reportes.Show();
+            }
+             catch (LogOnException engEx)
+           {
+           }
+           catch (DataSourceException engEx)
+           {
+           }
+           catch (EngineException engEx)
+           {
+           }
         }
     }
 }

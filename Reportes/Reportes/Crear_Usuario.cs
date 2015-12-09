@@ -10,16 +10,16 @@ using System.Windows.Forms;
 
 namespace Reportes
 {
-    public partial class Crear_Reporte : Form
+    public partial class Crear_Usuario : Form
     {
-        public Crear_Reporte()
+        public Crear_Usuario()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            this.Close();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -27,9 +27,9 @@ namespace Reportes
             this.Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
     }
 }

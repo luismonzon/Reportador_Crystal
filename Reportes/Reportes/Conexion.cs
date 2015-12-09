@@ -134,4 +134,78 @@ public class Conexion
        
     }
 
+    public void Insertar_Dep(String nombre, String url)
+    {
+        using (SqlConnection connection = new SqlConnection(datosConexion))
+        {
+            connection.Open();
+            string sql = "INSERT INTO LSA_REPORTES(nombre_reporte,path_reporte) VALUES(@param1,@param2);";
+            SqlCommand cmd = new SqlCommand(sql, connection);
+
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add("@param1", SqlDbType.VarChar).Value = nombre;
+            cmd.Parameters.Add("@param2", SqlDbType.VarChar).Value = url;
+            cmd.CommandType = CommandType.Text;
+            cmd.ExecuteNonQuery();
+
+
+        }
+
+    }
+
+    public void Insertar_Usuario(String nombre, String pass)
+    {
+        using (SqlConnection connection = new SqlConnection(datosConexion))
+        {
+            connection.Open();
+            string sql = "INSERT INTO LSA_USUARIOS(username,password) VALUES(@param1,@param2);";
+            SqlCommand cmd = new SqlCommand(sql, connection);
+
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add("@param1", SqlDbType.VarChar).Value = nombre;
+            cmd.Parameters.Add("@param2", SqlDbType.VarChar).Value = pass;
+            cmd.CommandType = CommandType.Text;
+            cmd.ExecuteNonQuery();
+
+
+        }
+
+    }
+
+
+
+
+
+
+
+    //DELETE
+
+    public String Delete_Departamento(string dep, string dec, string param)
+    {
+        using (SqlConnection connection = new SqlConnection(datosConexion))
+        {
+            connection.Open();
+
+            SqlCommand cmd = new SqlCommand(dec, connection);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add(new SqlParameter(param, dep));
+
+            using (SqlDataReader rdr = cmd.ExecuteReader())
+            {
+
+                while (rdr.Read())
+                {
+                    return rdr["resultado"].ToString();
+                }
+            }
+
+
+        }
+
+        return "0";
+    }
+
+
 }

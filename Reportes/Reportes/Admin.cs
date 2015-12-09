@@ -176,7 +176,7 @@ namespace Reportes
                     else
                     {
                         TreeNode nuevo = new TreeNode(row.Cells[1].Value.ToString());
-                        nuevo.Tag = row.Cells[2].ToString();
+                        nuevo.Tag = row.Cells[2].Value.ToString();
                         destinationNode.Nodes.Add(nuevo);
                     }
                    
@@ -205,6 +205,8 @@ namespace Reportes
         {
             Crear_Departamento nuevo = new Crear_Departamento();
             nuevo.ShowDialog();
+            System.Diagnostics.Debug.Write("");
+            Repintar();
         }
 
         private void salirToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -227,7 +229,14 @@ namespace Reportes
 
         }
 
-       
+
+        private void Repintar() {
+
+            this.treeView1.Nodes.Clear();
+            Llenar_Reportes();
+            LLenar_arbol();
+        
+        }
 
     }
 }
