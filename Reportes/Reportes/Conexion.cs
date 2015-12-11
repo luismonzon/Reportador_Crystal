@@ -84,7 +84,34 @@ public class Conexion
 
     }
 
-   
+
+    public String Insertar_user_dep(String user, String dep)
+    {
+        using (SqlConnection connection = new SqlConnection(datosConexion))
+        {
+            connection.Open();
+
+            SqlCommand cmd = new SqlCommand("Asignar_Dep_User", connection);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add(new SqlParameter("@user", user));
+            cmd.Parameters.Add(new SqlParameter("@dep", dep));
+
+            using (SqlDataReader rdr = cmd.ExecuteReader())
+            {
+
+                while (rdr.Read())
+                {
+                    return rdr["resultado"].ToString();
+                }
+            }
+
+
+        }
+
+        return "0";
+    }
 
     public String Insertar_rep_dep(String rep, String dep)
     {
@@ -134,7 +161,7 @@ public class Conexion
        
     }
 
-    public void Insertar_Dep(String nombre, String url)
+    public void Insertar_Reporte(String nombre, String url)
     {
         using (SqlConnection connection = new SqlConnection(datosConexion))
         {
@@ -158,7 +185,7 @@ public class Conexion
         using (SqlConnection connection = new SqlConnection(datosConexion))
         {
             connection.Open();
-            string sql = "INSERT INTO LSA_USUARIOS(username,password) VALUES(@param1,@param2);";
+            string sql = "INSERT INTO LSA_USUARIOS(username,password) VALUES(@param1,pwdencrypt(@param2));";
             SqlCommand cmd = new SqlCommand(sql, connection);
 
             cmd.Parameters.Clear();

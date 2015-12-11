@@ -24,20 +24,26 @@ namespace Reportes
            
             Conexion log = new Conexion();
         
-            DataTable res =log.GetSql("SELECT username,password"+
+            DataTable res =log.GetSql("SELECT username,password, rol "+
                                       " FROM LSA_USUARIOS"+
                                       " WHERE PWDCOMPARE(N'"+this.contraseña.Text.ToString()+"',password) = 1 and username ='"+this.usuario.Text.ToString()+"'");
             if(res!=null){
 
                 VariablesGlobales.Password = contraseña.Text.ToString();
                 VariablesGlobales.Usuario = usuario.Text.ToString();
+                VariablesGlobales.Rol=res.Rows[0][2].ToString();
+                if (VariablesGlobales.Rol.Equals("administrador"))
+                {
+                    Admin admin = new Admin(this);
+                    admin.Show();
+                    this.Hide();
+                }
+                else {
+                    User nuevo = new User();
+                    nuevo.Show();
+                }
                 
-                Admin admin = new Admin(this);
-                admin.Show();
-                this.Hide();
-
-               // User nuevo = new User();
-               // nuevo.Show();
+               // 
             }
             else
             {

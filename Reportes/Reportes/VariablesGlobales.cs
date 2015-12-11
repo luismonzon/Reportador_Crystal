@@ -11,7 +11,7 @@ namespace Reportes
     {
         public static String Usuario;
         public static String Password;
-
+        public static String Rol;
         public static void ShowReport(String url)
         {
             try
